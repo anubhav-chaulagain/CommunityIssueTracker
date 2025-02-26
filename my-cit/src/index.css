@@ -1,0 +1,985 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Lato:wght@400;700&display=swap');
+@import "tailwindcss";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+
+  --primary-color : #147b73;
+  --background-color: #EEF0F2;
+  --error-color: #FF0000;
+  --active-teal-background: #e6f7f6;
+  --sidebar-hover-color: #f3f4f6;
+
+  /* font-family: "Jua", sans-serif; */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+#root {
+  position: relative;
+}
+
+/* Navigation Bar */
+
+.header {
+  background-color: rgb(238, 238, 238);
+  box-shadow: 10px 1px 5px rgba(0,0,0,.3);
+  z-index: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 100px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.header.onMainPage .hamburgerMenu {
+  margin-left: -50px; /* Adjust as needed */
+}
+
+.header .logo {
+  font-size: 30px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Jua", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+.header .logo .hamburgerMenu {
+  width: 27px;
+  height: 27px;
+  /* background-color: red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header .logo .hamburgerMenu span{
+  height: 5px;
+  width: 27px;
+  border-radius: 2px;
+  z-index: 999;
+}
+.header .navbar-items-container {
+  list-style: none;
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+/* 
+.header .navbar-items-container li {
+  font-size: 24px;
+  background-color: var(--primary-color);
+  padding: 5px 18px;
+  border-radius: 6px;
+} */
+
+.header .navbar-items-container .signup {
+  background-color: var(--primary-color);
+  font-size: 24px;
+  color: white;
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; /* space-x-1 */
+  transition: background-color 0.2s ease-in-out; /* transition */
+}
+
+.header .navbar-items-container .signup:hover{
+  cursor: pointer;
+  background-color: rgba(20, 123, 115, 0.9); /* hover:bg-[var(--primary-color)]/90 */
+}
+
+.header .navbar-items-container .login {
+  font-size: 24px;
+  color: var(--primary-color); /* text-[var(--primary-color)] */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  border-radius: 0.5rem; /* rounded-lg */
+  transition: color 0.2s ease-in-out; /* transition */
+}
+
+.header .navbar-items-container .login:hover{
+  cursor: pointer;
+  color: rgba(20, 123, 115, 0.9); /* hover:text-[var(--primary-color)]/90 */
+}
+
+.header .navbar-items-container .profileIcon {
+  background-color:  #1a8f86;
+  font-size: 20px;
+  width: 120px;
+  height: 40px;
+  font-weight: 500;
+  text-align: center;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header.onMainPage {
+  color: white;
+  background-color: var(--primary-color);
+}
+
+.header.onMainPage .logo .hamburgerMenu span{
+  background-color: white;
+}
+
+.header.onMainPage .hamburgerMenu:hover span {
+  background-color: #1f2937; 
+}
+
+
+/* Navigation Bar END */
+
+
+/* Landing Page */
+.landing-hero {
+  /* background-color: gray; */
+  width: 90%;
+  max-width: 1500px; /* Ensures consistent spacing */
+  margin: 0 auto;
+  height: 100vh;
+  padding-top: 100px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.landing-hero .textContent p:nth-of-type(1) {
+  font-size: 4rem; /* text-5xl (equivalent to 48px) */
+  font-weight: 700; /* font-bold */
+  color: #1f2937; /* text-gray-900 */
+  margin-bottom: 1.5rem; /* mb-6 (equivalent to 24px) */
+  color: var(--primary-color);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin-top: -90px;
+}
+
+.landing-hero .textContent p:nth-of-type(2){
+  font-size: 1.5rem; /* text-xl (equivalent to 20px) */
+  color: #4b5563; /* text-gray-600 */
+  margin-bottom: 2rem; /* mb-8 (equivalent to 32px) */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.landing-hero .getStartedBtn {
+  text-decoration: none;
+  background-color: var(--primary-color); /* bg-[#147b73] */
+  color: white; /* text-white */
+  padding: 0.75rem 1.5rem; /* px-6 py-3 */
+  border-radius: 0.5rem; /* rounded-lg */
+  display: inline-flex; /* Fixes full-width issue */
+  align-items: center; /* items-center */
+  justify-content: center; /* Center text inside */
+  font-size: 1.25rem; /* Improve readability */
+  font-weight: 600; /* Slightly bolder look */
+  transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
+  cursor: pointer; /* Ensures it looks clickable */
+  width: auto; /* Prevents full width */
+  max-width: fit-content; /* Keeps width only as per content */
+}
+
+.landing-hero .getStartedBtn:hover {
+  background-color: rgba(20, 123, 115, .9)
+}
+
+.landing-hero .textContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.landing-hero .image img {
+  max-width: 75%;
+  height: auto;
+}
+
+.landing-hero .image {
+  flex: 1;
+  display: flex;
+  justify-content: center; /* Centers the image */
+  align-items: center;
+}
+
+/* Landing Page END */
+
+/* Signup */
+
+.signupForm h1, 
+.signupForm label,
+.signupForm select,
+.signupForm button {
+  font-family: "Lato", sans-serif;
+}
+
+.signupForm, .loginForm {
+  background-color: white;
+  max-width: 500px;
+  margin: 100px auto;
+  padding: 40px 30px 20px 30px;
+  border-radius: 16px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+}
+
+.signupForm h1,
+.loginForm h1 {
+  font-family: sans-serif;
+  margin-bottom: 20px;
+  font-size: 30px; /* 34px */
+}
+
+.signupForm .labelInputContainer,
+.loginForm .labelInputContainer {
+  margin-bottom: 14px;
+}
+
+.signupForm label,
+.loginForm label{
+  margin-bottom: 6px;
+  color: rgb(60, 60, 60);
+}
+
+.signupForm input,
+.signupForm select,
+.loginForm input {
+  width: 100%;
+  background-color: transparent;
+  height: 40px;
+  border-radius: 4px;
+  border: 1.5px solid gray;
+  padding-left: 12px;
+  font-size: 18px;
+}
+
+.signupForm label,
+.loginForm label {
+  display: block;
+}
+
+.signupForm button,
+.loginForm button {
+  margin-top: 8px;
+  width: 100%;
+  height: 40px;
+  border-radius: 6px;
+  border: none;
+  font-size: 20px;
+  color: white;
+  background-color: var(--primary-color);
+}
+
+.signupForm button:hover,
+.loginForm button:hover {
+  cursor: pointer;
+  background-color: rgba(20, 123, 115, 0.9);
+}
+
+.signupForm .errorMsg,
+.loginForm .errorMsg,
+.reportIssuesForm .errorMsg,
+.settings .errorMsg {
+  color: var(--error-color) ;
+  /* text-align: center; */
+  margin-top: 3px;
+}
+
+.signupForm input.errorInput,
+.loginForm input.errorInput,
+.reportIssuesForm .errorInput,
+.settings .errorInput {
+  border-color: var(--error-color);
+}
+
+/* Signup END */
+
+/* Sidebar */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-width: 307px;
+  z-index: 0;
+  padding-top: 110px;
+  background-color: white;
+  height: 100vh;
+  padding-left: 30px;
+  padding-right: 30px;
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);  
+}
+
+.sidebar .iconSpan img{
+  width: 24px;
+}
+
+.sidebar .reportIssueBtn {
+  background-color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 8px;
+  padding: 14px 28px;
+  margin-bottom: 24px;
+  transition: all .15s ease-out;
+}
+
+.bodyItems .settings .head .saveChangesBtn {
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin-bottom: 24px;
+  border: none;
+  color: white;
+  transition: all .15s ease-out;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.sidebar .reportIssueBtn.reduced {
+  padding: 14px 20px;
+}
+
+.sidebar .reportIssueBtn:hover,
+.bodyItems .settings .head .saveChangesBtn:hover,
+.reportIssueSubmitBtn:hover {
+  background-color: #1a8f86;
+  cursor: pointer;
+}
+
+.sidebar .reportIssueBtn .iconSpan,
+.sidebar .dashboardBtn .iconSpan,
+.sidebar .myReportsBtn .iconSpan,
+.sidebar .resolvedBtn .iconSpan,
+.sidebar .settingsBtn .iconSpan  {
+  margin-top: 4px;
+}
+
+.sidebar .reportIssueBtn .spanText{
+  font-size: 22px;
+  color: white;
+}
+
+.sidebar .dashboardBtn,
+.sidebar .myReportsBtn,
+.sidebar .resolvedBtn,
+.sidebar .settingsBtn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 8px;
+  padding: 14px 8px;
+  margin-bottom: 12px;
+  transition: all .15s ease-out;
+}
+
+.sidebar .dashboardBtn.reduced,
+.sidebar .myReportsBtn.reduced,
+.sidebar .resolvedBtn.reduced,
+.sidebar .settingsBtn.reduced {
+  justify-content: center;
+}
+
+.sidebar .dashboardBtn:hover,
+.sidebar .myReportsBtn:hover,
+.sidebar .resolvedBtn:hover,
+.sidebar .settingsBtn:hover {
+  background-color: var(--sidebar-hover-color);
+  cursor: pointer;
+}
+
+.sidebar .dashboardBtn .spanText,
+.sidebar .myReportsBtn .spanText,
+.sidebar .resolvedBtn .spanText,
+.sidebar .settingsBtn .spanText {
+  font-size: 20px;
+}
+
+.sidebar .dashboardBtn.active,
+.sidebar .myReportsBtn.active,
+.sidebar .resolvedBtn.active,
+.sidebar .settingsBtn.active {
+  background-color: var(--active-teal-background);
+}
+
+/* Sidebar END */
+
+/* Main page body */
+
+.bodyItems {
+  display: flex;
+}
+
+.bodyItems .dashboard,
+.bodyItems .myReports,
+.bodyItems .resolved,
+.bodyItems .settings,
+.bodyItems .reportIssues {
+  margin-left: 307px;
+  padding: 120px 4rem 3rem 4rem;
+  flex: 1;
+  z-index: 0;
+}
+
+.bodyItems .dashboard.active,
+.bodyItems .myReports.active,
+.bodyItems .resolved.active,
+.bodyItems .settings.active,
+.bodyItems .reportIssues.active {
+  margin-left: 130px;
+}
+
+/* Settings */
+
+.bodyItems .settings .head,
+.reportIssuesForm h1 {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.bodyItems .settings .head h1,
+.dashboard h1,
+.myReports h1 {
+  color: #1f2937;
+}
+
+/* Profile setting section GPT */
+
+.profileSettings,
+.reportIssuesForm {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.profileSettings .title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.profileSettings .profileImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profileSettings .changePhoto,
+.reportIssuesForm .locationAndBtn button {
+  background-color: #f3f4f6;
+  color: #374151;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profileSettings .changePhoto:hover,
+.reportIssuesForm .locationAndBtn button:hover {
+  background-color: #e5e7eb;
+}
+
+.profileSettings .photoInfo {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+.profileSettings .inputGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.profileSettings .label{
+  display: block;
+  font-size: 1.115rem;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 8px;
+}
+
+.profileSettings .inputField {
+  width: 100%;
+  padding: 8px;
+  height: 48px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  outline: none;
+  font-size: 18px;
+  transition: border-color 0.2s;
+}
+
+.profileSettings .inputField:focus {
+  border-color: #147b73;
+  box-shadow: 0 0 0 2px rgba(20, 123, 115, 0.2);
+}
+
+
+
+/* Profile setting section GPT END */
+
+/* Privacy Security GPT */
+
+.privacySecurity {
+  background-color: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.privacySecurity-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+/* .privacySecurity-subtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 16px 0 12px;
+} */
+
+.privacySecurity-inputGroup,
+.reportIssuesForm p {
+  margin-bottom: 16px;
+}
+
+.privacySecurity-inputGroup label,
+.reportIssuesForm label,
+.photo-upload-section h2 {
+  display: block;
+  font-size: 1.115rem;
+  font-weight: 500;
+  color: #4b5563;
+  margin-bottom: 12px;
+}
+
+.privacySecurity-inputGroup input,
+.reportIssuesForm #title,
+.reportIssuesForm select {
+  width: 100%;
+  padding: 8px 12px;
+  height: 48px;
+  border: 1px solid #d1d5db;
+  font-size: 18px;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.privacySecurity-inputGroup input::placeholder {
+  font-size: 18px;
+}
+
+.privacySecurity-inputGroup input:focus {
+  border-color: #147b73;
+  outline: none;
+  box-shadow: 0 0 4px rgba(20, 123, 115, 0.5);
+}
+
+
+/* Privacy Security GPT END */
+/* Settings END */
+
+/* Report Issues Modal */
+
+/* Photo upload section */
+.photo-upload-section {
+  border-radius: 10px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+
+.photo-upload-section label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 8rem;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: border 0.1s ease-out;
+}
+
+.photo-upload-section label:hover {
+  border: 3px dashed var(--primary-color);
+}
+
+.photo-upload-section #upload-icon {
+  height: 40px;
+}
+
+.photo-upload-section span {
+  margin-bottom: 10px;
+}
+
+.photo-upload-section .image-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  padding: 0;
+  list-style: none;
+}
+
+.photo-upload-section .image-list li {
+  background: #f8f8f8;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.photo-upload-section .image-list li::before {
+  content: "📷"; /* Adds a camera emoji before each image name */
+  margin-top: -5px;
+}
+
+.photo-upload-section .image-list li:hover {
+  background: #eaeaea;
+}
+
+
+.reportIssuesForm textarea {
+  resize: none;
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  font-size: 18px;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.reportIssuesForm .locationAndBtn {
+  display: flex;
+  justify-content: space-between;
+  gap: .5rem;
+}
+
+.reportIssuesForm .locationAndBtn input{
+  width: 100%;
+  padding: 8px 12px;
+  height: 48px;
+  border: 1px solid #d1d5db;
+  font-size: 18px;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.reportIssuesForm .locationAndBtn button {
+  min-width: 179px
+}
+
+.photo-upload-section h2 {
+  text-align: left;
+}
+
+.reportIssuesForm input:focus,
+.reportIssuesForm select:focus,
+.reportIssuesForm textarea:focus {
+  border-color: #147b73;
+  outline: none;
+  box-shadow: 0 0 4px rgba(20, 123, 115, 0.5);
+}
+
+.reportIssuesForm #identity {
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}
+
+.reportIssuesForm #checkboxLabel {
+  display: inline;
+}
+
+
+.reportIssueSubmitBtn {
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin-bottom: 24px;
+  border: none;
+  color: white;
+  transition: all .15s ease-out;
+  font-size: 20px;
+  text-decoration: none;
+  display: flex;
+  justify-self: end;
+}
+
+/* Report Issues Modal END*/
+
+/* Dashboard */
+
+.dashboard .container,
+.myReports .container,
+.resolved .container {
+  width: 100%;
+  margin: 0 auto;
+  /* padding: 20px; */
+}
+
+.dashboard .header,
+.myReports .header,
+.resolved .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.dashboard .header h2,
+.myReports .header h2,
+.resolved .header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.dashboard .filters,
+.myReports .filters,
+.resolved .filters {
+  display: flex;
+  gap: 10px;
+}
+
+.dashboard .filters select,
+.myReports .filters select,
+.resolved .filters select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+}
+
+.dashboard .issues-grid,
+.myReports .issues-grid,
+.resolved .issues-grid {
+  display: grid;
+  gap: 25px;
+}
+
+.dashboard .issue-card,
+.myReports .issue-card,
+.resolved .issue-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.dashboard .issue-card:hover,
+.myReports .issue-card:hover,
+.resolved .issue-card:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard .issue-header,
+.myReports .issue-header,
+.resolved .issue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.dashboard .issue-header h3,
+.myReports .issue-header h3,
+.resolved .issue-header h3 {
+  font-size: 28px;
+  font-weight: 550;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.dashboard .issue-details,
+.myReports .issue-details,
+.resolved .issue-details {
+  display: flex;
+  gap: 15px;
+  font-size: 19px;
+  color: #4a4a4a;
+}
+
+.dashboard .issue-details span,
+.myReports .issue-details span,
+.resolved .issue-details span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.dashboard .status,
+.myReports .status,
+.resolved .status {
+  padding: 10px 18px;
+  border-radius: 24px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.dashboard .status-pending,
+.myReports .status-pending,
+.resolved .status-pending {
+  background: #ffedd5;
+  color: #d97706;
+}
+
+.dashboard .status-in-progress,
+.myReports .status-in-progress,
+.resolved .status-in-progress {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.dashboard .status-resolved,
+.myReports .status-resolved ,
+.resolved .status-resolved {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.dashboard .issue-footer,
+.myReports .issue-footer,
+.resolved .issue-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.dashboard .actions,
+.myReports .actions,
+.resolved .actions {
+  display: flex;
+  gap: 15px;
+}
+
+.dashboard .actions button,
+.myReports .actions button,
+.resolved .actions button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 19px;
+  color: #3e3e3e;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.dashboard .actions button:hover,
+.myReports .actions button:hover,
+.resolved .actions button:hover {
+  color: #147b73;
+}
+
+.dashboard .urgency,
+.myReports .urgency,
+.resolved .urgency {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dashboard .high-urgency,
+.myReports .high-urgency,
+.resolved .high-urgency {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 8px 10px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.dashboard .medium-urgency,
+.myReports .medium-urgency,
+.resolved .medium-urgency {
+  background: #ffedd5;
+  color: #d97706;
+  padding: 8px 10px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.dashboard .low-urgency,
+.myReports .low-urgency,
+.resolved .low-urgency {
+  background: #d1fae5; /* Light green */
+  color: #047857; /* Dark green */
+  padding: 8px 10px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.dashboard .urgency button,
+.myReports .urgency button,
+.resolved .urgency button {
+  background-color: transparent;
+  border: none;
+  padding-top: 5px;
+}
+
+.dashboard .urgency button:hover,
+.myReports .urgency button:hover,
+.resolved .urgency button:hover {
+  color:#1a8f86;
+  cursor: pointer;
+}
+
+.dashboard h1,
+.myReports h1,
+.resolved h1 {
+  margin-bottom: 36px;
+}
+
+/* Dashboard END */
+/* Main Page body END */
+
+.logoText.ofAuthDashboard {
+  font-weight: 500;
+  margin-left: -50px;
+}
+
+.ofAuthHeader {
+  background-color: white;
+}
+
+.authDashboard {
+  padding: 150px 50px 50px 50px;
+}
