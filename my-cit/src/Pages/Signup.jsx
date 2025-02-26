@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { signup } from "../http";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
     
@@ -103,6 +104,7 @@ export default function Signup() {
             <div  className="labelInputContainer">
                 <button>Sign up</button>
             </div>
+            <Link to={'/login'} className="formBottomText">Already have an account?</Link>
         </form>
     );
 }

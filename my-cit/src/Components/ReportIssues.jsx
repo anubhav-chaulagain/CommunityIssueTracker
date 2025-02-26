@@ -2,8 +2,10 @@ import { useState } from "react";
 import UploadIcon from "../assets/icons/upload-icon.svg";
 import { reportIssue } from "../http";
 import { getUserData } from "../http";
+import { useOutletContext } from "react-router-dom";
 
-export default function ReportIssues({ sidebarActive }) {
+export default function ReportIssues() {
+  const { sidebarActive } = useOutletContext()
   const [images, setImages] = useState([]);
   const [invalidField, setInvalidField] = useState({ name: "", message: "" });
   const [location, setLocation] = useState("");

@@ -1,3 +1,4 @@
+import { useOutletContext } from "react-router-dom";
 import {
   MapPin,
   Clock,
@@ -9,7 +10,8 @@ import { useEffect, useState } from "react";
 import RightArrow from "../assets/icons/rightArrow.svg";
 import { getAllIssues } from "../http";
 
-export default function Dashboard({ sidebarActive }) {
+export default function Dashboard() {
+  const { sidebarActive } = useOutletContext()
   const [issues, setIssues] = useState([]);
   useEffect(() => {
     getAllIssues()

@@ -264,6 +264,51 @@ const updateUser = async (req, res) => {
   }
 };
 
+// const getUnresolvedIssues = async (req, res) => {
+//   try {
+//     // ✅ Get user email from token in cookies
+//     const userEmail = req.user?.email;
+
+//     if (!userEmail) {
+//       return res.status(401).json({ message: "Unauthorized: No email found in token" });
+//     }
+
+//     // ✅ Fetch issues where `status` is NOT "Resolved"
+//     const issues = await ReportIssue.findAll({
+//       where: {
+//         status: { [Op.ne]: "Resolved" }, // Fetch issues with status NOT "Resolved"
+//         reportingUser: userEmail, // Ensure only the logged-in user's issues are retrieved
+//       },
+//     });
+
+//     res.status(200).json({ data: issues });
+//   } catch (error) {
+//     console.error("Error fetching unresolved issues:", error);
+//     res.status(500).json({ message: "Failed to fetch issues" });
+//   }
+// };
+
+const updateIssues = async (req, res) => {
+  try {
+    const { id, status } = req.body;
+
+    if (!id || !status) {
+      return res.status(400).json({ message: "Issue ID and status are required" });
+    }
+
+    const issue = await ReportIssue.findByPk(id);
+    if (!issue) {
+      return res.status(404).json({ message: "Issue not found" });
+    }
+
+    await ReportIssue.update({ status }, { where: { id } });
+    res.status(200).json({ message: "Issue updated successfully!" });
+  } catch (error) {
+    console.error("Error updating issue:", error);
+    res.status(500).json({ message: "Failed to update issue" });
+  }
+};
+
 
 export const userController = {
   create,
@@ -273,5 +318,6 @@ export const userController = {
   getAllIssues,
   getMyIssues,
   getResolvedIssues,
-  updateUser
+  updateUser,
+  updateIssues,
 };

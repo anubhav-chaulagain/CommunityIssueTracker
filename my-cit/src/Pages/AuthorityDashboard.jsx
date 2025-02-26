@@ -2,7 +2,8 @@ import Navbar from "../Components/NavBar";
 import StatCard from "../Components/StatCard";
 import StatusBadge from "../Components/StatusBadge";
 import { useState, useEffect } from "react";
-import { getAllIssues } from "../http";
+import { getAllIssues, updateIssues } from "../http";
+
 import {
   Bug,
   Users,
@@ -31,24 +32,36 @@ export default function AuthorityDashboard({ sidebarActive }) {
     inProgress: 0,
     resolved: 0,
   });
-  
+
   useEffect(() => {
     getAllIssues()
       .then((data) => {
         console.log("Fetched Issues:", data);
         const issuesList = data?.data || []; // ✅ Avoid errors if data is undefined
+
+        // Filter issues that are not resolved
+        const unresolvedIssues = issuesList.filter(
+          (issue) => issue.status.toLowerCase() !== "resolved"
+        );
+
         const computedStats = {
           total: issuesList.length,
-          pending: issuesList.filter(issue => issue.status.toLowerCase() === "pending").length,
-          inProgress: issuesList.filter(issue => issue.status.toLowerCase() === "in-progress").length,
-          resolved: issuesList.filter(issue => issue.status.toLowerCase() === "resolved").length,
+          pending: unresolvedIssues.filter(
+            (issue) => issue.status.toLowerCase() === "pending"
+          ).length,
+          inProgress: unresolvedIssues.filter(
+            (issue) => issue.status.toLowerCase() === "in-progress"
+          ).length,
+          resolved: issuesList.filter(
+            (issue) => issue.status.toLowerCase() === "resolved"
+          ).length,
         };
-        setIssues(issuesList);
+
+        setIssues(unresolvedIssues); // Set only unresolved issues
         setStats(computedStats);
       })
       .catch((error) => console.error("Failed to fetch issues:", error));
   }, []); // ✅ Runs only once when component mounts
-
 
   function formatDate(isoString) {
     const date = new Date(isoString);
@@ -59,6 +72,29 @@ export default function AuthorityDashboard({ sidebarActive }) {
     const day = String(date.getDate()).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    if (!selectedIssue) {
+      console.error("No issue selected");
+      return;
+    }
+
+    const fd = new FormData(event.target);
+    const data = Object.fromEntries(fd.entries());
+
+    // ✅ Add issue ID to the request data
+    data.id = selectedIssue.id;
+
+    updateIssues(data)
+      .then((response) => {
+        console.log("Issue updated:", response);
+      })
+      .catch((error) => {
+        console.error("Update failed:", error);
+      });
   }
 
   return (
@@ -92,7 +128,6 @@ export default function AuthorityDashboard({ sidebarActive }) {
           icon={<CheckCircle2 className="h-6 w-6" />}
           color="bg-green-500"
         />
-        
       </div>
 
       {/* Search and Filter Bar */}
@@ -160,7 +195,7 @@ export default function AuthorityDashboard({ sidebarActive }) {
         {/* Issue Details */}
         <div className="!bg-white !rounded-lg !shadow-sm w-full md:w-[30%]">
           {selectedIssue ? (
-            <div className="!p-4">
+            <form className="!p-4" onSubmit={handleSubmit}>
               <div className="!mb-4">
                 <h2 className="!text-xl !font-semibold !mb-2">
                   {selectedIssue.title}
@@ -191,6 +226,13 @@ export default function AuthorityDashboard({ sidebarActive }) {
                   <select
                     className="!mt-1 !w-full !border !rounded-lg !px-3 !py-2 !focus:outline-none !focus:ring-2 !focus:ring-[#147b73]"
                     value={selectedIssue.status}
+                    name="status"
+                    onChange={(e) =>
+                      setSelectedIssue({
+                        ...selectedIssue,
+                        status: e.target.value,
+                      })
+                    }
                   >
                     <option value="pending">Pending</option>
                     <option value="in-progress">In Progress</option>
@@ -209,7 +251,7 @@ export default function AuthorityDashboard({ sidebarActive }) {
                   </button>
                 </div>
               </div>
-            </div>
+            </form>
           ) : (
             <div className="!p-4 !text-center !text-gray-500">
               <MessageSquare className="!h-12 !w-12 !mx-auto !mb-2" />

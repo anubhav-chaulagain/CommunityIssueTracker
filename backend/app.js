@@ -25,8 +25,10 @@ app.post('/users/login', userController.loginWithEmailAndPassword);
 app.get('/users',verifyToken, userController.getUserDataFromCookies)
 app.patch('/users',verifyToken, userController.updateUser);
 app.get('/issues', userController.getAllIssues);
+app.patch('/issues',verifyToken, userController.updateIssues);
 app.get('/myIssues',verifyToken, userController.getMyIssues);
 app.get('/resolvedIssues',verifyToken, userController.getResolvedIssues);
+// app.get('/unresolvedIssues',verifyToken, userController.getUnresolvedIssues);
 
 
 app.listen(3000, function () {

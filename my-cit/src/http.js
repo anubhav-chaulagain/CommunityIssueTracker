@@ -76,10 +76,22 @@ export async function updateProfile(data) {
   return response.json();
 }
 
-export async function getUnresolvedIssues() {
-  const response = await fetch("http://localhost:3000/unresolvedIssues", {
-    method: "GET",
-    credentials: "include", // ✅ Ensures token (cookie) is sent
+export async function updateIssues(data) {
+  const response = await fetch("http://localhost:3000/issues", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+    credentials: "include",
   });
   return response.json();
 }
+
+// export async function getUnresolvedIssues() {
+//   const response = await fetch("http://localhost:3000/unresolvedIssues", {
+//     method: "GET",
+//     credentials: "include", // ✅ Ensures token (cookie) is sent
+//   });
+//   return response.json();
+// }

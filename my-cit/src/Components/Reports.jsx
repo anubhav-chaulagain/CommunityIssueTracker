@@ -8,8 +8,10 @@ import {
 } from "lucide-react";
 import RightArrow from "../assets/icons/rightArrow.svg";
 import { getMyIssues } from "../http";
+import { useOutletContext } from "react-router-dom";
 
-export default function Reports({ sidebarActive }) {
+export default function Reports() {
+  const { sidebarActive } = useOutletContext()
   const [issues, setIssues] = useState([]);
   useEffect(() => {
     getMyIssues()

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { login } from "../http";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const [invalidField, setInvalidField] = useState({
@@ -86,6 +87,7 @@ export default function Login() {
       <div className="labelInputContainer">
         <button>Sign up</button>
       </div>
+      <Link to={'/signup'} className="formBottomText">Create a new account ?</Link>
     </form>
   );
 }

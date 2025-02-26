@@ -305,6 +305,16 @@ body {
   border-color: var(--error-color);
 }
 
+.formBottomText {
+  display: flex;
+  justify-content: center;
+  transition: color .2s ease-out;
+}
+
+.formBottomText:hover {
+  color: #10625b;
+}
+
 /* Signup END */
 
 /* Sidebar */
@@ -450,6 +460,10 @@ body {
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
+} 
+
+.reportIssuesForm h1 {
+  font-size: 32px;
 }
 
 .bodyItems .settings .head h1,
@@ -978,6 +992,7 @@ body {
 
 .ofAuthHeader {
   background-color: white;
+  padding: 20px 100px;
 }
 
 .authDashboard {

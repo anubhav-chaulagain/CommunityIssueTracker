@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import Sheild from "../assets/icons/verify.svg";
 import { updateProfile, getUserData } from "../http";
-export default function Settings({ sidebarActive }) {
+import { useOutletContext } from "react-router-dom";
+
+export default function Settings() {
+  const { sidebarActive } = useOutletContext()
   const [userData, setUserData] = useState({});
   const [invalidField, setInvalidField] = useState({ errorField: "", message: "" });
   useEffect(() => {
@@ -86,7 +89,7 @@ export default function Settings({ sidebarActive }) {
             <p className="errorMsg">{invalidField.message}</p>
           )}
           </div>
-
+          
           <div className="privacySecurity-inputGroup">
             <input
               type="password"
