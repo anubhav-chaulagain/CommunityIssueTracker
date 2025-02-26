@@ -28,7 +28,9 @@ app.get('/issues', userController.getAllIssues);
 app.patch('/issues',verifyToken, userController.updateIssues);
 app.get('/myIssues',verifyToken, userController.getMyIssues);
 app.get('/resolvedIssues',verifyToken, userController.getResolvedIssues);
-// app.get('/unresolvedIssues',verifyToken, userController.getUnresolvedIssues);
+
+app.get('/auth/me', verifyToken, userController.getMe);
+app.get('/auth/logout', userController.logout);
 
 
 app.listen(3000, function () {

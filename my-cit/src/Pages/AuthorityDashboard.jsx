@@ -3,6 +3,7 @@ import StatCard from "../Components/StatCard";
 import StatusBadge from "../Components/StatusBadge";
 import { useState, useEffect } from "react";
 import { getAllIssues, updateIssues } from "../http";
+import { useNavigate } from "react-router-dom";
 
 import {
   Bug,
@@ -23,6 +24,35 @@ import {
 } from "lucide-react";
 
 export default function AuthorityDashboard({ sidebarActive }) {
+  const navigate = useNavigate();
+  useEffect(() => {
+    // ✅ Get user function (moved outside)
+    const getUser = async () => {
+      try {
+        const res = await fetch("http://localhost:3000/auth/me", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (!res.ok) return null;
+
+        const data = await res.json();
+        return data.user;
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        return null;
+      }
+    };
+    getUser().then((user) => {
+      if (!user) {
+        navigate("/login");
+      }
+      if(user.role !== "authority") {
+        navigate("/login");
+      }
+    });
+  }, []);
+
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [filterStatus, setFilterStatus] = useState("all");
   const [issues, setIssues] = useState([]);

@@ -85,7 +85,7 @@ export default function Login() {
         ) : null}
       </div>
       <div className="labelInputContainer">
-        <button>Sign up</button>
+        <button>Login</button>
       </div>
       <Link to={'/signup'} className="formBottomText">Create a new account ?</Link>
     </form>

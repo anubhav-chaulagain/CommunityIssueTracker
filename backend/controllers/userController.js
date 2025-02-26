@@ -309,6 +309,24 @@ const updateIssues = async (req, res) => {
   }
 };
 
+const getMe = async (req, res) => {
+  const token = req.cookies.token; // 🔥 Secure way to get cookie
+
+  if (!token) {
+    return res.status(401).json({ message: "Not authenticated" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET); // 🔐 Verify token
+    res.json({ user: decoded }); // ✅ Send user data to frontend
+  } catch (error) {
+    return res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+const logout = async (req, res) => {
+  res.clearCookie("token").json({ message: "Logged out successfully" });
+}
 
 export const userController = {
   create,
@@ -318,6 +336,8 @@ export const userController = {
   getAllIssues,
   getMyIssues,
   getResolvedIssues,
+  getMe,
   updateUser,
   updateIssues,
+  logout,
 };
