@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { login } from "../http";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [invalidField, setInvalidField] = useState({
     name: "",
     message: "",
@@ -38,13 +39,13 @@ export default function Login() {
     login({ email: data.email, password: data.password })
       .then((response) => {
         if (response && response.json) {
-          return response.json(); // ✅ Ensure response is a valid JSON response
+          return response.json();
         }
-        return response; // If it's already JSON, return as is
+        return response;
       })
-      .then((data) => {
-        console.log("Login Response:", data); // ✅ Debugging
-
+      .then((data) => {console.log("Login Response:", data); // ✅ Debugging
+       
+        
         if (data.errorType === "bothEmpty") {
           setInvalidField({ name: "email", message: data.message });
           setInvalidField({ name: "password", message: data.message });
@@ -52,6 +53,8 @@ export default function Login() {
           setInvalidField({ name: "email", message: data.message });
         } else if (data.errorType === "password") {
           setInvalidField({ name: "password", message: data.message });
+        } else {
+          navigate(data.user.role === "authority" ? "/authority" : "/main");
         }
       })
       .catch((error) => console.error("Error:", error)); // ✅ Catch unexpected errors

@@ -88,10 +88,10 @@ export async function updateIssues(data) {
   return response.json();
 }
 
-// export async function getUnresolvedIssues() {
-//   const response = await fetch("http://localhost:3000/unresolvedIssues", {
-//     method: "GET",
-//     credentials: "include", // ✅ Ensures token (cookie) is sent
-//   });
-//   return response.json();
-// }
+export async function getCookie() {
+  const response = await fetch("http://localhost:3000/auth/me", {
+    method: "GET",
+    credentials: "include",
+  });
+  return response.json();
+}

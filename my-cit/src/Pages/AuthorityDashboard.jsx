@@ -2,8 +2,10 @@ import Navbar from "../Components/NavBar";
 import StatCard from "../Components/StatCard";
 import StatusBadge from "../Components/StatusBadge";
 import { useState, useEffect } from "react";
-import { getAllIssues, updateIssues } from "../http";
+import { getAllIssues, updateIssues, getCookie } from "../http";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import MapCompoent from "../Components/MapComponent.jsx";
 
 import {
   Bug,
@@ -25,32 +27,17 @@ import {
 
 export default function AuthorityDashboard({ sidebarActive }) {
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+
   useEffect(() => {
-    // ✅ Get user function (moved outside)
-    const getUser = async () => {
-      try {
-        const res = await fetch("http://localhost:3000/auth/me", {
-          method: "GET",
-          credentials: "include",
-        });
-
-        if (!res.ok) return null;
-
-        const data = await res.json();
-        return data.user;
-      } catch (error) {
-        console.error("Error fetching user:", error);
-        return null;
-      }
-    };
-    getUser().then((user) => {
-      if (!user) {
-        navigate("/login");
-      }
-      if(user.role !== "authority") {
-        navigate("/login");
-      }
-    });
+    getCookie()
+      .then((data) => {
+        if (data.user.role !== "Authority") {
+          navigate("/main/dashboard");
+        }
+        setUserName(data.user.name);
+      })
+      .catch((error) => console.error("Failed to get cookie:", error));
   }, []);
 
   const [selectedIssue, setSelectedIssue] = useState(null);
@@ -127,10 +114,29 @@ export default function AuthorityDashboard({ sidebarActive }) {
       });
   }
 
+  function justLogout() {
+    fetch("http://localhost:3000/auth/logout", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((res) => {
+        if (res.ok) {
+          navigate("/login");
+        }
+      })
+      .catch((error) => console.error("Error logging out:", error));
+  }
+
   return (
     <div className="authDashboard">
       <Navbar onAuthDashboard={true}>
-        <li className="profileIcon">Ace</li>
+        <li className="profileIcon">{userName}</li>
+        <Link
+          className="!text-base hover:text-emerald-700"
+          onClick={justLogout}
+        >
+          LogOut
+        </Link>
       </Navbar>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-8">
@@ -290,6 +296,13 @@ export default function AuthorityDashboard({ sidebarActive }) {
           )}
         </div>
       </div>
+      {selectedIssue &&
+        (() => {
+          const [latitude, longitude] = selectedIssue.location
+            .split(", ")
+            .map(Number);
+          return <MapCompoent latitude={latitude} longitude={longitude} />;
+        })()}
     </div>
   );
 }

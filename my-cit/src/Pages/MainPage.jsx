@@ -6,17 +6,18 @@ import { ChevronDown } from "lucide-react";
 import Navbar from "../Components/NavBar";
 import Sidebar from "../Components/Sidebar";
 export default function MainPage() {
+  const [userName, setUserName] = useState("");
+
   useEffect(() => {
-    // ✅ Get user function (moved outside)
     const getUser = async () => {
       try {
         const res = await fetch("http://localhost:3000/auth/me", {
           method: "GET",
           credentials: "include",
         });
-
+  
         if (!res.ok) return null;
-
+  
         const data = await res.json();
         return data.user;
       } catch (error) {
@@ -24,12 +25,19 @@ export default function MainPage() {
         return null;
       }
     };
+  
     getUser().then((user) => {
-      console.log("User heeiere :", user);
       if (!user) {
         navigate("/login");
+        return;
       }
-      });
+      setUserName(user.name);
+      
+      // Redirect authority users to their dashboard
+      if (user.role === "Authority") {
+        navigate("/authority"); 
+      }
+    });
   }, []);
 
   const navigate = useNavigate();
@@ -54,7 +62,7 @@ export default function MainPage() {
     if (!currentPath) {
       navigate("/main/dashboard"); // Default route
     }
-  }, []);
+  }, [currentPath]);
 
   function justLogout() {
     fetch("http://localhost:3000/auth/logout", {
@@ -73,7 +81,7 @@ export default function MainPage() {
     <>
       <Navbar onMainPage={true} toggleSidebar={toggleSidebar}>
         <Link to={"/main/settings"} className="profileIcon">
-          Ace
+          {userName}
           <ChevronDown className="!mt-2 !pl-0.5" />
         </Link>
         <Link className="!text-base hover:text-indigo-100" onClick={justLogout}>LogOut</Link>

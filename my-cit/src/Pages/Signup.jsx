@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { signup } from "../http";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
+    const navigate = useNavigate();
     
     const [invalidField, setInvalidField] =useState({
         name: "",
@@ -63,10 +64,10 @@ export default function Signup() {
             });
             return;
         }
-        console.log("hi");
         
         signup(data).then(response => {
             console.log(response.json);
+            navigate("/login");
         });
         
     }

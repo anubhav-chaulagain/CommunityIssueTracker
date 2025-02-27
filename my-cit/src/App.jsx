@@ -17,24 +17,6 @@ import Settings from "./Components/Settings";
 import ReportIssues from "./Components/ReportIssues";
 import AuthorityDashboard from "./pages/AuthorityDashboard";
 
-// ✅ Get user function (moved outside)
-const getUser = async () => {
-  try {
-    const res = await fetch("http://localhost:3000/auth/me", {
-      method: "GET",
-      credentials: "include",
-    });
-
-    if (!res.ok) return null;
-
-    const data = await res.json();
-    return data.user;
-  } catch (error) {
-    console.error("Error fetching user:", error);
-    return null;
-  }
-};
-
 
 
 // ✅ Router

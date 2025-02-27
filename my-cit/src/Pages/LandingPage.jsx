@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import Navbar from "../Components/NavBar";
 export default function LandingPage() {
   return (
     <>
       <Navbar onMainPage={false}>
-        <li className="login">Login</li>
-        <li className="signup">Sign up</li>
+        <Link to={'/login'} className="login">Login</Link>
+        <Link to={'/signup'}  className="signup">Sign up</Link>
       </Navbar>
       <main className="landing-hero">
         <div className="textContent">
@@ -13,9 +14,9 @@ export default function LandingPage() {
             Every issue deserves attention. Report problems, collaborate
             <br /> for solutions, and build a stronger community.
           </p>
-          <a href="" className="getStartedBtn">
+          <Link to={'/signup'} className="getStartedBtn">
             Get Started
-          </a>
+          </Link>
         </div>
         <div className="image">
           <img src="/communityIssues.jpeg" alt="Community Issues Image" />
