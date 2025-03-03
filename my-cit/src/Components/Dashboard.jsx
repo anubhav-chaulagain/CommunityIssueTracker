@@ -22,28 +22,6 @@ export default function Dashboard() {
       .catch((error) => console.error("Failed to fetch issues:", error));
   }, []); // ✅ Runs only once when component mounts
 
-  // const issues = [
-  //   {
-  //     id: 1,
-  //     title: "Pothole on Main Street",
-  //     location: "Main St, Kathmandu",
-  //     date: "Feb 24, 2025",
-  //     status: "Pending",
-  //     votes: 12,
-  //     comments: 4,
-  //     urgency: "High",
-  //   },
-  //   {
-  //     id: 2,
-  //     title: "Garbage collection delay",
-  //     location: "New Road, Kathmandu",
-  //     date: "Feb 22, 2025",
-  //     status: "In Progress",
-  //     votes: 8,
-  //     comments: 2,
-  //     urgency: "Medium",
-  //   },
-  // ];
 
   const getStatusColor = (status) => {
     switch (status) {
